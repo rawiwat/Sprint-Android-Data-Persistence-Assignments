@@ -9,4 +9,5 @@ interface JournalRepoInterface {
     fun readAllEntries(): MutableList<JournalEntry>
     fun updateEntry(entry: JournalEntry)
     fun deleteEntry(entry: JournalEntry)
+
 }
