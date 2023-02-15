@@ -1,17 +1,21 @@
 package com.example.sharedprefsassignment
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+class Book {
+    var title:String? = null
+    var reasonToRead:String? = null
+    var hasBeenRead:Boolean? = null
+    var id:String? = null
 
-class Book : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_book)
-
+    constructor( title:String,
+                 reasonToRead:String,
+                 hasBeenRead:Boolean,
+                 id:String) {
+    }
+    fun toCSVString():String{
+        return "$title,$reasonToRead,$hasBeenRead,$id"
     }
 
-    override fun onBackPressed() {
+    constructor(csvString: String){
 
-        finish()
     }
 }

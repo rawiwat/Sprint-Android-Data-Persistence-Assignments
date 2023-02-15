@@ -12,7 +12,7 @@
         android:theme="@style/Theme.SharedPrefsAssignment"
         tools:targetApi="31">
         <activity
-            android:name=".Book"
+            android:name=".BookActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
