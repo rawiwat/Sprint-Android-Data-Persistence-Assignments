@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         val booklist = findViewById<FrameLayout>(R.id.listOfBook)
 
         fun buildItemView (){
-            //this is only for step 3-4 in Part 1 which test the method by hard coding it
+            //this is only for step 3-4 in Part 1 which test the method by hard coding it in practice you get the value of book when this was call
             val newBook = Book("huzzah","nothin",true,"1")
             newBookTitle.text = newBook.title
             //val constraint = ConstraintSet()
@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
                 ConstraintLayout.LayoutParams.WRAP_CONTENT
             )
             newBookTitle.id = booklist.childCount
+            newBookTitle.layoutParams = parameter
             println(newBookTitle.id)
             booklist.addView(newBookTitle)
             newBookTitle.setOnClickListener {
