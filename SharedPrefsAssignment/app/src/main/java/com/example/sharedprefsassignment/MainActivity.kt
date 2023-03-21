@@ -34,7 +34,9 @@ class MainActivity : AppCompatActivity() {
             println(newBookTitle.id)
             booklist.addView(newBookTitle)
             newBookTitle.setOnClickListener {
-
+                val intent = Intent(this,BookActivity::class.java)
+                intent.putExtra("",String())
+                startActivity(intent)
             }
 
 
