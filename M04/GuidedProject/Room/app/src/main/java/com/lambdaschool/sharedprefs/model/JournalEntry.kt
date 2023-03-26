@@ -21,6 +21,7 @@ class JournalEntry : Serializable {
         const val INVALID_ID = 0
     }
 
+    val needsDelete: Boolean = false
     var date: String? = null
     var entryText: String? = null
     var image: String? = null

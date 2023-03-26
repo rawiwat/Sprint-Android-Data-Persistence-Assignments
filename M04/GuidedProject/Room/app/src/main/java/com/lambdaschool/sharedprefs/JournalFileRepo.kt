@@ -82,7 +82,7 @@ class JournalFileRepo(var context: Context): JournalRepoInterface {
             return state == Environment.MEDIA_MOUNTED
         }
 
-    override fun readAllEntries(): LiveData<List<JournalEntry>> {
+    override fun readAllEntries(): MutableList<JournalEntry> {
         // get filelist
         val entries = ArrayList<JournalEntry>()
 
@@ -99,7 +99,7 @@ class JournalFileRepo(var context: Context): JournalRepoInterface {
         }
         val liveData = MutableLiveData<List<JournalEntry>>()
         liveData.postValue(entries)
-        return liveData
+        return entries
     }
 
     val filelist: ArrayList<String>

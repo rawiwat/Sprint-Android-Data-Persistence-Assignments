@@ -7,25 +7,23 @@ import com.lambdaschool.sharedprefs.model.JournalEntry
 // TODO 9: Let's define the DAO with methods from our repo interface
 @Dao
 interface JournalEntryDAO {
-
 // TODO 10: Insert with onConflict = REPLACE
     // TODO 11: Query for all entities
     // TODO 12: Update with onConflict = REPLACE
     // TODO 13: DELETE
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun createEntry(entry: JournalEntry){
+    fun createEntry(entry: JournalEntry)
 
-    }
     @Query("SELECT * FROM journalEntry WHERE image LIKE 'A%' ")
-    fun readAllEntries(): MutableList<JournalEntry>{
-        return  mutableListOf()
-    }
+    fun readAllEntries(): MutableList<JournalEntry>
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateEntry(entry: JournalEntry){
+    fun updateEntry(entry: JournalEntry)
 
-    }
     @Delete
-    fun deleteEntry(entry: JournalEntry){
+    fun deleteEntry(entry: JournalEntry)
 
-    }
+    @Query("select * from journalentry where needsDelete is 1")
+    fun findNeedsDelete(): MutableList<JournalEntry>
+
 }

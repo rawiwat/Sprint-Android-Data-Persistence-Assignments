@@ -9,16 +9,16 @@ import com.lambdaschool.sharedprefs.model.JournalEntry
 class JournalDBRepo(context: Context) : JournalRepoInterface {
     val context = context.applicationContext
     override fun createEntry(entry: JournalEntry){
-
+        database.entriesDao().createEntry(entry)
     }
     override fun readAllEntries(): MutableList<JournalEntry>{
-        return  mutableListOf()
+        return  database.entriesDao().readAllEntries()
     }
     override fun updateEntry(entry: JournalEntry){
-
+        database.entriesDao().updateEntry(entry)
     }
     override fun deleteEntry(entry: JournalEntry){
-
+        database.entriesDao().deleteEntry(entry)
     }
 
     // TODO 15: Build the Room database
@@ -28,4 +28,5 @@ class JournalDBRepo(context: Context) : JournalRepoInterface {
             JournalEntryDB::class.java,"entry_database"
         ).fallbackToDestructiveMigration().build()
     }
+
 }
