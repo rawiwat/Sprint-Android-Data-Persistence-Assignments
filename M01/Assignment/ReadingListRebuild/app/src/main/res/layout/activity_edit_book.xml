@@ -10,13 +10,15 @@
         android:id="@+id/bookName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:hint="enter book name here"/>
 
     <EditText
         android:id="@+id/bookReasonToRead"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/bookName"/>
+        app:layout_constraintTop_toBottomOf="@id/bookName"
+        android:hint="reason to read"/>
 
     <ImageButton
         android:id="@+id/readCheck"
