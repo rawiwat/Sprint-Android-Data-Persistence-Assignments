@@ -3,6 +3,7 @@ package com.lambdaschool.sharedprefs.model
 import android.net.Uri
 import androidx.annotation.NonNull
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import org.json.JSONException
 import org.json.JSONObject
@@ -21,20 +22,20 @@ class JournalEntry : Serializable {
         const val INVALID_ID = 0
     }
 
-    val needsDelete: Boolean = false
+    //val needsDelete: Boolean = true
     var date: String? = null
     var entryText: String? = null
-    var image: String? = null
+    var picture: String? = null
     var dayRating: Int = 0
 
     // TODO 7: Let's make id the primary key
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = true) @NonNull
     var id: Int = 0
 
     constructor(id: Int) {
         this.id = id
         this.entryText = ""
-        this.image = ""
+        this.picture = ""
 
         initializeDate()
     }
@@ -51,9 +52,9 @@ class JournalEntry : Serializable {
             this.entryText = ""
         }
         try {
-            this.image = jsonObject.getString("image")
+            this.picture = jsonObject.getString("image")
         } catch (e: JSONException) {
-            this.image = ""
+            this.picture = ""
         }
         try {
             this.dayRating = jsonObject.getInt("day_rating")
@@ -72,13 +73,13 @@ class JournalEntry : Serializable {
             return JSONObject().apply {
                 put("date", date)
                 put("entry_text", entryText)
-                put("image", image)
+                put("image", picture)
                 put("day_rating", dayRating)
                 put("id", id)
             }
         } catch (e1: JSONException) {
             return try {
-                JSONObject("{\"date\" : \"$date\", \"entry_text\" : \"$entryText\", \"image\": \"$image\", \"day_rating\": $dayRating, \"id\": $id}")
+                JSONObject("{\"date\" : \"$date\", \"entry_text\" : \"$entryText\", \"image\": \"$picture\", \"day_rating\": $dayRating, \"id\": $id}")
             } catch (e2: JSONException) {
                 e2.printStackTrace()
                 return null
@@ -109,7 +110,7 @@ class JournalEntry : Serializable {
             // preserve entry structure
             this.entryText = values[3].replace("~@", ",")
             // placeholder for image will maintain csv's structure even with no provided image
-            this.image = if (values[4] == "unused") "" else values[4]
+            this.picture = if (values[4] == "unused") "" else values[4]
         }
     }
 
@@ -121,7 +122,7 @@ class JournalEntry : Serializable {
             date,
             dayRating,
             entryText?.replace(",", "~@"),
-            if (image === "") "unused" else image
+            if (picture === "") "unused" else picture
         )
     }
 
@@ -133,18 +134,18 @@ class JournalEntry : Serializable {
     }
 
     fun getImage(): Uri? {
-        return if (image != "") {
-            Uri.parse(image)
+        return if (picture != "") {
+            Uri.parse(picture)
         } else {
             null
         }
     }
 
     fun setImage(imageUri: Uri) {
-        this.image = imageUri.toString()
+        this.picture = imageUri.toString()
     }
 
     override fun toString(): String {
-        return "JournalEntry(date=$date, entryText=$entryText, image=$image, dayRating=$dayRating, id=$id)"
+        return "JournalEntry(date=$date, entryText=$entryText, image=$picture, dayRating=$dayRating, id=$id)"
     }
 }

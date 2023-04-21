@@ -14,8 +14,8 @@ interface JournalEntryDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun createEntry(entry: JournalEntry)
 
-    @Query("SELECT * FROM journalEntry WHERE image LIKE 'A%' ")
-    fun readAllEntries(): MutableList<JournalEntry>
+    @Query("SELECT * FROM journalEntry WHERE picture LIKE 'A%' ")
+    fun readAllEntries(): LiveData<List<JournalEntry>>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateEntry(entry: JournalEntry)
@@ -23,7 +23,7 @@ interface JournalEntryDAO {
     @Delete
     fun deleteEntry(entry: JournalEntry)
 
-    @Query("select * from journalentry where needsDelete is 1")
-    fun findNeedsDelete(): MutableList<JournalEntry>
+    //@Query("select * from journalentry where needsDelete is 1")
+    //fun findNeedsDelete(): MutableList<JournalEntry>
 
 }
