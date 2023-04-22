@@ -1,10 +1,10 @@
 package com.example.readinglistrebuild
 
- class Book {
+ class Book:java.io.Serializable {
 
      var title:String? = null
-     val reasonToRead:String? = null
-     val hasBeenRead:Boolean? = null
+     var reasonToRead:String? = null
+     var hasBeenRead:Boolean? = null
      var id:String? = null
 
      constructor(){
