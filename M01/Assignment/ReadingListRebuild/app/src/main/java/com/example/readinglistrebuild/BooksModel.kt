@@ -5,6 +5,7 @@ import android.content.Context
 class BooksModel(context: Context) {
 
     private val sharedPrefsDao: SharedPrefsDao = SharedPrefsDao()
+    private val bookStorage:BookStorage = BookStorage(context)
 
     init {
         this.sharedPrefsDao.initialize(context)
@@ -53,6 +54,7 @@ class BooksModel(context: Context) {
     }
 
     fun updateBook(book: Book) {
-        sharedPrefsDao.updateBook(book)
+        //sharedPrefsDao.updateBook(book)
+        bookStorage.updateBook(book)
     }
 }

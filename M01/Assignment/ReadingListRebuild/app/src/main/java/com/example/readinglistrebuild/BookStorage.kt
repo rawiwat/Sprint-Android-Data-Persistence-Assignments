@@ -9,7 +9,8 @@ import java.io.IOException
 class BookStorage(var context: Context) : saveBookInterface {
     // this class will save book as JSON file
     override fun getAllBookIds(): ArrayList<String> {
-        TODO("Not yet implemented")
+        val idList = ArrayList<String>()
+        return idList
     }
 
     override fun getNextId(): Int {
@@ -21,7 +22,6 @@ class BookStorage(var context: Context) : saveBookInterface {
     }
 
     override fun updateBook(book: Book) {
-        //TODO("Not yet implemented")
         val bookString = book.toJsonObject()
         val filename = "Book${book.title}.json"
         writeToFile(filename,bookString.toString())
