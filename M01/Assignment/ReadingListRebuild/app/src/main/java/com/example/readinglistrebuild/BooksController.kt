@@ -8,9 +8,9 @@ import android.widget.TextView
 
 class BooksController {
 
-    fun getBookViews(context: Context): LinearLayout {
+    fun getBookViews(context: Context, bookShelf: LinearLayout): LinearLayout {
+        bookShelf.removeAllViews()
         val books = BooksModel(context).getListOfBook()
-        var bookShelf = LinearLayout(context)
         for (book in books) {
             val textView = getBooksView(book, context)
             bookShelf.addView(textView)
@@ -23,13 +23,18 @@ class BooksController {
         val textView = TextView(context)
         textView.text = "${book.title},${book.reasonToRead},${book.hasBeenRead},${book.id}"
         textView.setOnClickListener{
-//            val intent = Intent(context, EditBookActivity::class.java)
+            val intent = Intent(context, EditBookActivity::class.java)
             val bookProperty = textView.text
             println(bookProperty)
-//            intent.putExtra("Selected Book",bookProperty)
+            intent.putExtra("Selected Book",bookProperty)
 //            setResult(Activity.RESULT_OK)
 //            startActivityForResultorResult(intent, 2)
         }
         return textView
+    }
+
+    fun updateBook(book: Book, context: Context) {
+        val bookModel = BooksModel(context)
+        bookModel.updateBook(book)
     }
 }

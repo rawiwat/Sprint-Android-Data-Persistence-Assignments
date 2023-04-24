@@ -18,7 +18,8 @@ package com.example.readinglistrebuild
          val values = csvString.split(",")
          this.title = values.elementAtOrNull(0)
          this.reasonToRead = values.elementAtOrNull(1)
-         this.hasBeenRead = true
+         this.hasBeenRead = values.elementAtOrNull(2).toBoolean()
+//         this.id = values.elementAtOrNull(3)
      }
 
      fun toCsvString():String{

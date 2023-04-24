@@ -52,7 +52,7 @@ class BooksModel(context: Context) {
         return nextID
     }
 
-    fun updateBook(book: Book){
+    fun updateBook(book: Book) {
         sharedPrefsDao.updateBook(book)
     }
 }

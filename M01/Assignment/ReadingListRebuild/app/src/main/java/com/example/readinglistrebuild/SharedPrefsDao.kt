@@ -3,7 +3,7 @@ package com.example.readinglistrebuild
 import android.content.Context
 import android.content.SharedPreferences
 
-class SharedPrefsDao {
+class SharedPrefsDao: saveBookInterface {
     companion object {
         const val ID_KEY_LIST = "book list"
         const val NEXT_ID_KEY = "next book"
@@ -17,9 +17,9 @@ class SharedPrefsDao {
         sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
-
-    fun getAllBookIds(): ArrayList<String> {
+    override fun getAllBookIds(): ArrayList<String> {
         // "1,2,3,4,5" -> ["1", "2", ...]
+
         val idList = sharedPreferences.getString(ID_KEY_LIST, "") ?: ""
 
         val arr = idList.split(",").toTypedArray()
@@ -28,11 +28,11 @@ class SharedPrefsDao {
         return list
     }
 
-    fun getNextId(): Int {
+    override fun getNextId(): Int {
         return sharedPreferences.getInt(NEXT_ID_KEY, 0) ?: 0
     }
 
-    fun getBook(id: String): String? {
+    override fun getBook(id: String): String? {
         // "book_"  "5"
         // "book_5"
         val key = BOOK_ID_KEY_PREFIX + id
@@ -40,7 +40,7 @@ class SharedPrefsDao {
         return bookCSV
     }
 
-    fun updateBook(book: Book) {
+    override fun updateBook(book: Book) {
         // 1,2,3,4,5
         val ids = getAllBookIds()
         // 1
@@ -68,18 +68,13 @@ class SharedPrefsDao {
             // bookid = 5
             book.id = nextID.toString()
 
-            editor.putInt(NEXT_ID_KEY, nextID++)
+            val newID = nextID + 1
+            editor.putInt(NEXT_ID_KEY, newID)
 
             // [1,2,3,4, 5]
             newIDList.add(nextID.toString())
 
-            // "1,2,3,4,5,"
-            val newIdList = StringBuilder()
-            for (id in newIDList) {
-                newIdList.append(id).append(",")
-            }
-
-            editor.putString(ID_KEY_LIST, newIdList.toString())
+            editor.putString(ID_KEY_LIST, newIDList.joinToString(separator = ","))
 
             // "book_5" :  "5, 2.3.23, 2, sdfsdfdsfdsfd, sdflkjdsf"
             val bookProperty = book.toCsvString()

@@ -50,7 +50,7 @@ class EditBookActivity : AppCompatActivity() {
     private fun returnData() {
         val editedTitle = findViewById<EditText>(R.id.bookName).text
         val editedReasonToRead = findViewById<EditText>(R.id.bookReasonToRead).text
-        val editedHasBeenRead = findViewById<CheckBox>(R.id.readCheck)
+        val editedHasBeenRead = findViewById<CheckBox>(R.id.readCheck).text
         val bookCSV = "${editedTitle},${editedReasonToRead},${editedHasBeenRead}"
         val returnedData = Intent()
         returnedData.putExtra("returnedBook",bookCSV)
