@@ -17,22 +17,25 @@ class MainActivity : AppCompatActivity() {
 
     private var returnedBook:String? = null
     private var bookShelf:LinearLayout? = null
-    private val preferences:SharedPreferences? = null
+    private val sharedPreferences: SharedPrefsDao = SharedPrefsDao()
+    private val booksController = BooksController()
 
-    fun buildItemView(bookView : Book): TextView {
-        val textView = TextView(this)
-        textView.text = "${bookView.title},${bookView.reasonToRead},${bookView.hasBeenRead},${bookView.id}"
-        textView.setOnClickListener{
-            val intent = Intent(this, EditBookActivity::class.java)
-            val bookProperty = textView.text
-            println(bookProperty)
-            intent.putExtra("Selected Book",bookProperty)
-            setResult(Activity.RESULT_OK)
-            startActivityForResult(intent, 2)
-        }
+    val PREFS_NAME = "my pref"
 
-        return textView
-    }
+//    fun buildItemView(bookView : Book): TextView {
+//        val textView = TextView(this)
+//        textView.text = "${bookView.title},${bookView.reasonToRead},${bookView.hasBeenRead},${bookView.id}"
+//        textView.setOnClickListener{
+//            val intent = Intent(this, EditBookActivity::class.java)
+//            val bookProperty = textView.text
+//            println(bookProperty)
+//            intent.putExtra("Selected Book",bookProperty)
+//            setResult(Activity.RESULT_OK)
+//            startActivityForResult(intent, 2)
+//        }
+//
+//        return textView
+//    }
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,12 +43,12 @@ class MainActivity : AppCompatActivity() {
 
         bookShelf = findViewById<LinearLayout>(R.id.bookScroll)
 
-        val testBook = Book()
-        //as the name suggest this is only for testing if the view work or not
-        testBook.id = "1"
-        testBook.title = "chocolate night"
+//        val testBook = Book()
+//        //as the name suggest this is only for testing if the view work or not
+//        testBook.id = "1"
+//        testBook.title = "chocolate night"
 
-        bookShelf?.addView(buildItemView(testBook))
+//        bookShelf?.addView(buildItemView(testBook))
 
         findViewById<Button>(R.id.addBookButton).setOnClickListener {
             val intent = Intent(this, EditBookActivity::class.java)
@@ -54,13 +57,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         println("got $returnedBook")
-        updateBook()
+        updateBookshelf()
 
-        if(preferences != null)
-        this.getSharedPreferences("Constant String",MODE_PRIVATE)
+        val bookShelfLayout = booksController.getBookViews(applicationContext)
+
+        bookShelf?.addView(bookShelfLayout)
 
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -70,14 +75,18 @@ class MainActivity : AppCompatActivity() {
             println(newBook)
             returnedBook = newBook
 
-            updateBook()
+            updateBookshelf()
 
-            // save book in shared prefereced
+            newBook?.let {
+                val book = Book(newBook)
+                // save book in shared prefereced
+                sharedPreferences.updateBook(book)
+            }
         }
 
     }
 
-    fun updateBook(){
+    fun updateBookshelf(){
         if(returnedBook != null) {
             val newBookProperty = returnedBook?.split(",")
             val newBook = Book()
@@ -87,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                 newBook.hasBeenRead = newBookProperty.get(2).toBoolean()
                 newBook.id = newBookProperty.get(3)
             }
-            bookShelf?.addView(buildItemView(newBook))
+//            bookShelf?.addView(buildItemView(newBook))
         }
     }
 

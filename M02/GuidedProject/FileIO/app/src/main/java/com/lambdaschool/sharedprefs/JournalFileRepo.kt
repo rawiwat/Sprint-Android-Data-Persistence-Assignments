@@ -41,7 +41,8 @@ class JournalFileRepo(var context: Context): JournalRepoInterface {
     }
 
     override fun updateEntry(entry: JournalEntry) {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
+        createEntry(entry)
     }
 
     override fun deleteEntry(entry: JournalEntry) {
@@ -72,19 +73,19 @@ class JournalFileRepo(var context: Context): JournalRepoInterface {
     }
 
     // TODO 9: Save storage directory as a member variable
-    val storageDirectory: File
-        get() {
-            if (isExternalStorageWriteable) {
-                val directory = context.filesDir//Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-                return if (!directory.exists() && !directory.mkdir()) {
-                    context.cacheDir
+            val storageDirectory: File
+            get() {
+                if (isExternalStorageWriteable) {
+                    val directory = context.filesDir//Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
+                    return if (!directory.exists() && !directory.mkdir()) {
+                        context.cacheDir
+                    } else {
+                        directory
+                    }
                 } else {
-                    directory
+                    return context.cacheDir
                 }
-            } else {
-                return context.cacheDir
-            }
-        }
+}
 
     // TODO 10: Check for external storage is writeable
     val isExternalStorageWriteable: Boolean

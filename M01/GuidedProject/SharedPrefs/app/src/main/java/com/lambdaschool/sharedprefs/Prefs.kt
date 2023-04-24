@@ -34,8 +34,9 @@ private const val ENTRY_ID_KEY_PREFIX = "entry_"
             for (id in ids){
                 newIdList.append(id).append(",")
             }
-
+            // "id_list" : "1,2,3,4,5"
             editor.putString(ID_LIST_KEY, newIdList.toString())
+            // "entry_5" :  "5, 2.3.23, 2, sdfsdfdsfdsfd, sdflkjdsf"
             editor.putString(ENTRY_ID_KEY_PREFIX + entry.id.toString(), entry.toCsvString())
             editor.commit()
         } else {

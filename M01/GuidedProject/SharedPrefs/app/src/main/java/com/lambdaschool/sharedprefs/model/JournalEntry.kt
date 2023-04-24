@@ -58,6 +58,7 @@ class JournalEntry : Serializable {
     // converting our object into a csv string that we can handle in a constructor
 
     fun toCsvString():String{
+
         return "$id, $date, $dayRating, ${entryText?.replace(",","@")}, ${if (image.isNullOrBlank())"unused" else image}"
     }
 
