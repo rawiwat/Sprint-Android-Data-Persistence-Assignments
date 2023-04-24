@@ -1,6 +1,9 @@
 package com.example.readinglistrebuild
 
- class Book:java.io.Serializable {
+import org.json.JSONException
+import org.json.JSONObject
+
+class Book:java.io.Serializable {
 
      var title:String? = null
      var reasonToRead:String? = null
@@ -26,4 +29,22 @@ package com.example.readinglistrebuild
          return "$title,$reasonToRead,$hasBeenRead,$id"
      }
 
+     fun toJsonObject(): JSONObject? {
+         try {
+             return JSONObject().apply {
+                 put("title", title)
+                 put("reasonToRead",reasonToRead)
+                 put("hasBeenRead",hasBeenRead)
+                 put("id",id)
+             }
+         } catch (e1: JSONException) {
+             return try {
+                 JSONObject("{\"title\" : \"$title\", \"reasonToRead\" : \"$reasonToRead\", \"hasBeenRead\" : \"$hasBeenRead\", \"id\" : \"$id\"}")
+             } catch (e2: JSONException){
+                 e2.printStackTrace()
+                 return null
+             }
+         }
+
+     }
  }

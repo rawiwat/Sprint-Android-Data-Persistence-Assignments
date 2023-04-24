@@ -85,7 +85,7 @@ class JournalFileRepo(var context: Context): JournalRepoInterface {
                 } else {
                     return context.cacheDir
                 }
-}
+            }
 
     // TODO 10: Check for external storage is writeable
     val isExternalStorageWriteable: Boolean
