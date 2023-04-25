@@ -10,17 +10,7 @@ class BookStorage(var context: Context) : SaveBookInterface {
     // this class will save book as JSON file
     override fun getAllBookIds(): ArrayList<String> {
         //gotta access ids from JSON file somehow
-        val books = ArrayList<Book>()
-
-        for (filename in filelist){
-            val json = readFromFile(filename)
-            try {
-                books.add(Book(JSONObject(json)))
-            } catch (e:JSONException){
-                e.printStackTrace()
-            }
-
-        }
+        val books = getAllBook()
 
         val idList = ArrayList<String>()
 
@@ -33,22 +23,24 @@ class BookStorage(var context: Context) : SaveBookInterface {
     }
 
     override fun getNextId(): Int {
-        TODO("Not yet implemented")
-        //
-
+        //TODO("Not yet implemented")
+        val nextID = getAllBook().size
+        return nextID
     }
 
-    override fun getBook(id: String): String? {
-        TODO("Not yet implemented")
-        //
+    override fun getBook(id: String): String {
+        //TODO("Not yet implemented")
+        //get an instance of BookList first
+        //get book
+        //convert JSONObject book to string
+        //return the book
+        val books = getAllBook()
+        val book = books.get(id.toInt())//there should be a safer way to do this?
 
+        return book.toString()
     }
 
     override fun updateBook(book: Book) {
-        createBook(book)
-    }
-
-    fun createBook(book: Book){
         val bookString = book.toJsonObject()
         val filename = "Book${book.title}.json"
         writeToFile(filename,bookString.toString())
@@ -94,6 +86,7 @@ class BookStorage(var context: Context) : SaveBookInterface {
                 }
             }
          }
+
     val filelist: ArrayList<String>
         get() {
             val fileNames = arrayListOf<String>()
@@ -135,6 +128,21 @@ class BookStorage(var context: Context) : SaveBookInterface {
         }
         //return readData.toString()
         return readString?:""
+    }
+
+    fun getAllBook():ArrayList<Book>{
+        val books = ArrayList<Book>()
+
+        for (filename in filelist){
+            val json = readFromFile(filename)
+            try {
+                books.add(Book(JSONObject(json)))
+            } catch (e:JSONException){
+                e.printStackTrace()
+            }
+
+        }
+        return books
     }
 
 }

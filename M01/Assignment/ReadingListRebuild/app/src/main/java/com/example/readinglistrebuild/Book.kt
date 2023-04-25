@@ -45,7 +45,7 @@ class Book:java.io.Serializable {
         try {
             this.id = jsonObject.getString("id")
         } catch (e:JSONException){
-            this.id = "-1"
+            this.id = "0"
         }
     }
      fun toCsvString():String{
