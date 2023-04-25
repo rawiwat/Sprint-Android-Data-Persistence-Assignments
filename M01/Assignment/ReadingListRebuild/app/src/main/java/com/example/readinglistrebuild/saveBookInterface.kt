@@ -2,7 +2,7 @@ package com.example.readinglistrebuild
 
 import android.content.Context
 
-interface saveBookInterface {
+interface SaveBookInterface {
     fun getAllBookIds() : ArrayList<String>
     fun getNextId():Int
     fun getBook(id: String): String?

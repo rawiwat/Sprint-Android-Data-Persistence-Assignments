@@ -3,7 +3,7 @@ package com.example.readinglistrebuild
 import android.content.Context
 import android.content.SharedPreferences
 
-class SharedPrefsDao: saveBookInterface {
+class SharedPrefsDao: SaveBookInterface {
     companion object {
         const val ID_KEY_LIST = "book list"
         const val NEXT_ID_KEY = "next book"

@@ -2,6 +2,7 @@ package com.example.readinglistrebuild
 
 import org.json.JSONException
 import org.json.JSONObject
+import java.util.*
 
 class Book:java.io.Serializable {
 
@@ -25,6 +26,28 @@ class Book:java.io.Serializable {
 //         this.id = values.elementAtOrNull(3)
      }
 
+    constructor(jsonObject: JSONObject){
+        try {
+            this.title = jsonObject.getString("title")
+        } catch (e:JSONException){
+            this.title = ""
+        }
+        try {
+            this.reasonToRead = jsonObject.getString("reasonToRead")
+        } catch (e:JSONException){
+            this.reasonToRead = ""
+        }
+        try {
+            this.hasBeenRead = jsonObject.getBoolean("hasBeenRead")
+        } catch (e:JSONException){
+            this.hasBeenRead = false
+        }
+        try {
+            this.id = jsonObject.getString("id")
+        } catch (e:JSONException){
+            this.id = "-1"
+        }
+    }
      fun toCsvString():String{
          return "$title,$reasonToRead,$hasBeenRead,$id"
      }

@@ -12,7 +12,7 @@ class BooksModel(context: Context) {
     }
 
     fun getListOfBook():ArrayList<Book>{
-        val bookIdlist = sharedPrefsDao.getAllBookIds()
+        val bookIdlist = bookStorage.getAllBookIds()
         //gotta access all the books from their list of ID later
         val bookList = ArrayList<Book>()
         val bookCSVList = ArrayList<String?>()
