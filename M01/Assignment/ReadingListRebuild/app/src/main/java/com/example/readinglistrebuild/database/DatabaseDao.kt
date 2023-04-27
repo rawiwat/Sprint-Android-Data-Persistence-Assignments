@@ -13,7 +13,7 @@ interface DatabaseDao {
     fun createBook(book: Book)
 
     @Query("SELECT * FROM book")
-    fun getAllBooks():LiveData<List<Book>>
+    fun getAllBooks():ArrayList<Book>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateBook(book: Book)
