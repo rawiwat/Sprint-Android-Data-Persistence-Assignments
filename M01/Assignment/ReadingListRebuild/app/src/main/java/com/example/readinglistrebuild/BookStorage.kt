@@ -24,7 +24,8 @@ class BookStorage(var context: Context) : SaveBookInterface {
 
     override fun getNextId(): Int {
         //TODO("Not yet implemented")
-        val nextID = getAllBook().size
+        val nextID = getAllBook().size + 1
+
         return nextID
     }
 
@@ -35,12 +36,14 @@ class BookStorage(var context: Context) : SaveBookInterface {
         //convert JSONObject book to string
         //return the book
         val books = getAllBook()
-        val book = books.get(id.toInt())//there should be a safer way to do this?
+        val id = id.toInt()
+        val book = books.elementAtOrNull(id)//there should be a safer way to do this?
 
-        return book.toString()
+        return book?.toCsvString() ?: ""
     }
 
     override fun updateBook(book: Book) {
+        book.id = getNextId().toString()
         val bookString = book.toJsonObject()
         val filename = "Book${book.title}.json"
         writeToFile(filename,bookString.toString())

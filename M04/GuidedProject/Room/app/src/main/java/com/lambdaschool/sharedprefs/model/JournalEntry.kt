@@ -23,6 +23,7 @@ class JournalEntry : Serializable {
     }
 
     //val needsDelete: Boolean = true
+    //note: var in entity shouldn't be private
     var date: String? = null
     var entryText: String? = null
     var picture: String? = null

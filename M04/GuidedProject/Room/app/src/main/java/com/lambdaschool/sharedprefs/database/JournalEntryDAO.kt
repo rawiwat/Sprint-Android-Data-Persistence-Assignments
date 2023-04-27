@@ -14,7 +14,7 @@ interface JournalEntryDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun createEntry(entry: JournalEntry)
 
-    @Query("SELECT * FROM journalEntry WHERE picture LIKE 'A%' ")
+    @Query("SELECT * FROM journalEntry WHERE picture LIKE 'A%' ")//note:this can give you compile error
     fun readAllEntries(): LiveData<List<JournalEntry>>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)

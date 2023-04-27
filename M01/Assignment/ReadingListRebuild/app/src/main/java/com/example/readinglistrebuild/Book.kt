@@ -1,9 +1,11 @@
 package com.example.readinglistrebuild
 
+import androidx.room.Entity
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
 
+@Entity
 class Book:java.io.Serializable {
 
      var title:String? = null
@@ -71,3 +73,5 @@ class Book:java.io.Serializable {
 
      }
  }
+
+

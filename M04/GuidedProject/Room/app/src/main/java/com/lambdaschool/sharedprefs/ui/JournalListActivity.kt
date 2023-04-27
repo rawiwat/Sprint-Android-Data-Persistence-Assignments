@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.lambdaschool.sharedprefs.R
 import com.lambdaschool.sharedprefs.entity.Journal.Companion.createJournalEntry
 import com.lambdaschool.sharedprefs.model.JournalEntry
-import com.lambdaschool.sharedprefs.repo
 import com.lambdaschool.sharedprefs.viewmodel.EntriesViewModel
 import kotlinx.android.synthetic.main.activity_journal_list.*
 import kotlinx.android.synthetic.main.content_journal_list.*
