@@ -17,7 +17,7 @@ class BooksModel(context: Context) {
         val bookList = ArrayList<Book>()
         val bookCSVList = ArrayList<String?>()
         for (id in bookIdlist){
-            bookCSVList.add(bookStorage.getBook(id))
+            bookCSVList.add(bookStorage.getBook(id.toString()))
         }
 
         for (bookCSV in bookCSVList){
