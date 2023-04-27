@@ -1,6 +1,8 @@
 package com.example.readinglistrebuild
 
+import androidx.annotation.NonNull
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
@@ -11,13 +13,15 @@ class Book:java.io.Serializable {
      var title:String? = null
      var reasonToRead:String? = null
      var hasBeenRead:Boolean? = null
-     var id:String? = null
+
+    @PrimaryKey(autoGenerate = true) @NonNull
+     var id:String = "0"
 
      constructor(){
          this.title = null
          this.reasonToRead = null
          this.hasBeenRead = null
-         this.id = null
+         this.id = "0"
      }
 
      constructor(csvString: String) {

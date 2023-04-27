@@ -6,5 +6,5 @@ import com.example.readinglistrebuild.Book
 
 @Database(entities = [Book::class], version = 1, exportSchema = false)
 abstract class BookDatabase : RoomDatabase(){
-    abstract fun
+    abstract fun bookDao() : DatabaseDao
 }
