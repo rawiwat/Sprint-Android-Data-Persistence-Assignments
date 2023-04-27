@@ -17,13 +17,16 @@ class SharedPrefsDao: SaveBookInterface {
         sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
-    override fun getAllBookIds(): ArrayList<String> {
+    override fun getAllBookIds(): ArrayList<Int> {
         // "1,2,3,4,5" -> ["1", "2", ...]
 
         val idList = sharedPreferences.getString(ID_KEY_LIST, "") ?: ""
 
         val arr = idList.split(",").toTypedArray()
-        val list = ArrayList<String>(arr.asList())
+        val list = ArrayList<Int>()//(arr.asList())
+        for (id in arr){
+            list.add(id.toInt())
+        }
 
         return list
     }
@@ -44,9 +47,9 @@ class SharedPrefsDao: SaveBookInterface {
         // 1,2,3,4,5
         val ids = getAllBookIds()
         // 1
-        val bookID = book.id ?: ""
+        val bookID = book.id// ?: ""
 
-        if (!bookID.isEmpty() && ids.contains(bookID)) {
+        if (bookID == 0 && ids.contains(bookID)) {
             //update
             //since this book ID already exist in list of books there's no need to make a new
             //get an instance of a book with this ID
@@ -66,13 +69,13 @@ class SharedPrefsDao: SaveBookInterface {
             // 5
             var nextID = getNextId()
             // bookid = 5
-            book.id = nextID.toString()
+            book.id = nextID
 
             val newID = nextID + 1
             editor.putInt(NEXT_ID_KEY, newID)
 
             // [1,2,3,4, 5]
-            newIDList.add(nextID.toString())
+            newIDList.add(nextID)
 
             editor.putString(ID_KEY_LIST, newIDList.joinToString(separator = ","))
 

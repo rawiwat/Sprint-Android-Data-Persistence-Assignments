@@ -26,7 +26,7 @@ class BooksModel(context: Context) {
             aBook.title = bookProperty?.elementAtOrNull(0)
             aBook.reasonToRead = bookProperty?.elementAtOrNull(1)
             aBook.hasBeenRead = bookProperty?.elementAtOrNull(2).toBoolean()
-            aBook.id = bookProperty?.elementAtOrNull(3)
+            aBook.id = bookProperty?.elementAtOrNull(3)?.toInt() ?: 0
 
             bookList.add(aBook)
         }
@@ -42,7 +42,7 @@ class BooksModel(context: Context) {
         bookfromID.title = bookProperty?.get(0)
         bookfromID.reasonToRead = bookProperty?.get(1)
         bookfromID.hasBeenRead  = bookProperty?.get(2).toBoolean()
-        bookfromID.id = id
+        bookfromID.id = id.toInt()
 
         return bookfromID
     }

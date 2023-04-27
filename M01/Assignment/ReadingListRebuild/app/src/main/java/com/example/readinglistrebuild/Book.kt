@@ -15,13 +15,13 @@ class Book:java.io.Serializable {
      var hasBeenRead:Boolean? = null
 
     @PrimaryKey(autoGenerate = true) @NonNull
-     var id:String = "0"
+     var id:Int = 0
 
      constructor(){
          this.title = null
          this.reasonToRead = null
          this.hasBeenRead = null
-         this.id = "0"
+         this.id = 0
      }
 
      constructor(csvString: String) {
@@ -49,9 +49,9 @@ class Book:java.io.Serializable {
             this.hasBeenRead = false
         }
         try {
-            this.id = jsonObject.getString("id")
+            this.id = jsonObject.getInt("id")
         } catch (e:JSONException){
-            this.id = "0"
+            this.id = 0
         }
     }
      fun toCsvString():String{

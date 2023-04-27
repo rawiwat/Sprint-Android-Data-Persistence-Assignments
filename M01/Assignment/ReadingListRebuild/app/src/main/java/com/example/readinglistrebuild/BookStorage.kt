@@ -8,11 +8,11 @@ import java.io.*
 
 class BookStorage(var context: Context) : SaveBookInterface {
     // this class will save book as JSON file
-    override fun getAllBookIds(): ArrayList<String> {
+    override fun getAllBookIds(): ArrayList<Int> {
         //gotta access ids from JSON file somehow
         val books = getAllBook()
 
-        val idList = ArrayList<String>()
+        val idList = ArrayList<Int>()
 
         for (book in books){
             book.id?.let {
@@ -43,7 +43,7 @@ class BookStorage(var context: Context) : SaveBookInterface {
     }
 
     override fun updateBook(book: Book) {
-        book.id = getNextId().toString()
+        book.id = getNextId()
         val bookString = book.toJsonObject()
         val filename = "Book${book.title}.json"
         writeToFile(filename,bookString.toString())

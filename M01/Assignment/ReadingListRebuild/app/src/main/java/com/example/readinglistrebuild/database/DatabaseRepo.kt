@@ -7,9 +7,9 @@ import com.example.readinglistrebuild.SaveBookInterface
 
 class DatabaseRepo(context: Context): SaveBookInterface {
     val context = context.applicationContext
-    override fun getAllBookIds(): ArrayList<String> {
+    override fun getAllBookIds(): ArrayList<Int> {
         val books = database.bookDao().getAllBooks()
-        val allBookIds = ArrayList<String>()
+        val allBookIds = ArrayList<Int>()
         for (book in books){
             book.id.let {
                 allBookIds.add(it)
