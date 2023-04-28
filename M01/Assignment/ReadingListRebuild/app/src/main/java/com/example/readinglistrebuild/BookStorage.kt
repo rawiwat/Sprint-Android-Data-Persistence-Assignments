@@ -2,6 +2,7 @@ package com.example.readinglistrebuild
 
 import android.content.Context
 import android.os.Environment
+import androidx.lifecycle.LiveData
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.*
@@ -29,7 +30,7 @@ class BookStorage(var context: Context) : SaveBookInterface {
         return nextID
     }
 
-    override fun getBook(id: String): String {
+    override fun getBook(id: Int): String {
         //TODO("Not yet implemented")
         //get an instance of BookList first
         //get book
@@ -47,6 +48,10 @@ class BookStorage(var context: Context) : SaveBookInterface {
         val bookString = book.toJsonObject()
         val filename = "Book${book.title}.json"
         writeToFile(filename,bookString.toString())
+    }
+
+    override fun getAllBooks(): LiveData<List<Book>> {
+        TODO("Not yet implemented")
     }
 
     val isExternalStorageWriteable: Boolean

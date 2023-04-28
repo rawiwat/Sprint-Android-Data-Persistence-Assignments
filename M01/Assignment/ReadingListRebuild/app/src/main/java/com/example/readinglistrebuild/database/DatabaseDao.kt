@@ -15,7 +15,7 @@ interface DatabaseDao {
     fun createBook(book: Book)
 
     @Query("SELECT * FROM book")
-    fun getAllBooks():List<Book>
+    fun getAllBooks():LiveData<List<Book>>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateBook(book: Book)
