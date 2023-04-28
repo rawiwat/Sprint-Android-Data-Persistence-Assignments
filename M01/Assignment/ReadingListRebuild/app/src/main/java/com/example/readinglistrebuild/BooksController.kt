@@ -19,6 +19,8 @@ class BooksController {
         return bookShelf
     }
 
+
+
     fun getBooksView(book: Book, context: Context): TextView {
         val textView = TextView(context)
         textView.text = "${book.title},${book.reasonToRead},${book.hasBeenRead},${book.id}"

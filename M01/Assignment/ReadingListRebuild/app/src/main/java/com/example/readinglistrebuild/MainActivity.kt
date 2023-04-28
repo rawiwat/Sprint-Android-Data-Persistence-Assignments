@@ -13,10 +13,13 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.get
 import com.example.readinglistrebuild.database.DatabaseRepo
+import java.lang.ref.WeakReference
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,7 +49,16 @@ class MainActivity : AppCompatActivity() {
 ////            setResult(Activity.RESULT_OK)
 ////            startActivityForResultorResult(intent, 2)
 
-        updateBookshelf()
+            //updateBookshelf()
+        ReadAllEntriesAsyncTask(this).execute()
+
+    }
+
+    private fun updateLayout(entries: List<Book>) {
+        bookShelf?.removeAllViews()
+        entries.forEach { book ->
+            bookShelf?.addView(booksController.getBooksView(book,applicationContext))
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -61,9 +73,9 @@ class MainActivity : AppCompatActivity() {
 
             newBook?.let {
                 val book = Book(newBook)
-                booksController.updateBook(book, applicationContext)
+                //booksController.updateBook(book, applicationContext)
+                //updateBookshelf()
                 UpdateBookAsyncTask(viewModel).execute(book)
-                updateBookshelf()
             }
         }
 
@@ -80,6 +92,25 @@ class MainActivity : AppCompatActivity() {
             if (params.isNotEmpty()){
                 params[0]?.let {
                     viewModel.updateBook(it)
+                }
+            }
+        }
+    }
+
+    class ReadAllEntriesAsyncTask(activity:MainActivity) :
+        AsyncTask<Void, Void, LiveData<List<Book>>>() {
+        val actRef = WeakReference(activity)
+        override fun doInBackground(vararg voids: Void): LiveData<List<Book>>? {
+            return actRef.get()?.viewModel?.books
+        }
+        override fun onPostExecute(result: LiveData<List<Book>>?) {
+            result?.let{
+                actRef.get()?.let { act ->
+                    result.observe(act, Observer<List<Book>>{t ->
+                        t?.let {
+                            act.updateLayout(t)
+                        }
+                    })
                 }
             }
         }
