@@ -13,6 +13,9 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.get
 import com.example.readinglistrebuild.database.DatabaseRepo
 
 class MainActivity : AppCompatActivity() {
@@ -20,12 +23,14 @@ class MainActivity : AppCompatActivity() {
     private var returnedBook:String? = null
     private var bookShelf:LinearLayout? = null
     private val booksController = BooksController()
+    lateinit var viewModel: BookViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         bookShelf = findViewById<LinearLayout>(R.id.bookScroll)
+        viewModel = ViewModelProviders.of(this).get(BookViewModel::class.java)
 
         findViewById<Button>(R.id.addBookButton).setOnClickListener {
             val intent = Intent(this, EditBookActivity::class.java)
@@ -57,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             newBook?.let {
                 val book = Book(newBook)
                 booksController.updateBook(book, applicationContext)
-
+                UpdateBookAsyncTask(viewModel).execute(book)
                 updateBookshelf()
             }
         }
@@ -70,11 +75,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    class CreateBookAsyncTask() : AsyncTask<Book,Void,Unit>() {
+    class UpdateBookAsyncTask(val viewModel: BookViewModel) : AsyncTask<Book,Void,Unit>() {
         override fun doInBackground(vararg params: Book?) {
             if (params.isNotEmpty()){
                 params[0]?.let {
-
+                    viewModel.updateBook(it)
                 }
             }
         }

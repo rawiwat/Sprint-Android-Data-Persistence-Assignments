@@ -8,6 +8,5 @@ interface SaveBookInterface {
     fun getNextId():Int
     fun getBook(id: Int): String?
     fun updateBook(book: Book)
-
     fun getAllBooks() : LiveData<List<Book>>
 }
