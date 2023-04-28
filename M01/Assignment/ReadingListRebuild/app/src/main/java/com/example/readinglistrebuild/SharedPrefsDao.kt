@@ -2,6 +2,7 @@ package com.example.readinglistrebuild
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.lifecycle.LiveData
 
 class SharedPrefsDao: SaveBookInterface {
     companion object {
@@ -35,7 +36,7 @@ class SharedPrefsDao: SaveBookInterface {
         return sharedPreferences.getInt(NEXT_ID_KEY, 0) ?: 0
     }
 
-    override fun getBook(id: String): String? {
+    override fun getBook(id: Int): String? {
         // "book_"  "5"
         // "book_5"
         val key = BOOK_ID_KEY_PREFIX + id
@@ -86,6 +87,10 @@ class SharedPrefsDao: SaveBookInterface {
             editor.commit()
         }
 
+    }
+
+    override fun getAllBooks(): LiveData<List<Book>> {
+        TODO("Not yet implemented")
     }
 }
 // sharedprefdao

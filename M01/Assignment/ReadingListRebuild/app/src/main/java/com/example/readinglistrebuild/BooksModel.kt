@@ -17,7 +17,7 @@ class BooksModel(context: Context) {
         val bookList = ArrayList<Book>()
         val bookCSVList = ArrayList<String?>()
         for (id in bookIdlist){
-            bookCSVList.add(bookStorage.getBook(id.toString()))
+            bookCSVList.add(bookStorage.getBook(id))
         }
 
         for (bookCSV in bookCSVList){
@@ -34,7 +34,7 @@ class BooksModel(context: Context) {
          return bookList
     }
 
-    fun getBookFromId(id:String):Book{
+    fun getBookFromId(id:Int):Book{
         //val sharedPrefsDao = SharedPrefsDao()
         val book = bookStorage.getBook(id)
         val bookProperty = book?.split(",")
@@ -42,7 +42,7 @@ class BooksModel(context: Context) {
         bookfromID.title = bookProperty?.get(0)
         bookfromID.reasonToRead = bookProperty?.get(1)
         bookfromID.hasBeenRead  = bookProperty?.get(2).toBoolean()
-        bookfromID.id = id.toInt()
+        bookfromID.id = id
 
         return bookfromID
     }
